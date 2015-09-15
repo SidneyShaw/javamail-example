@@ -53,7 +53,6 @@
 				return false;
 			}
 			  } 
-
             }
 			
 			var a1 = Math.ceil(Math.random() * 9)+ '';
@@ -80,7 +79,6 @@
 			function removeSpaces(string){
 				return string.split(' ').join('');
 			}
-
 			
         </script>
 </body>
@@ -89,9 +87,9 @@
             String host = "smtp.gmail.com"; 
             String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
             String port = "465";
-            String from = "******"; // gmail account email addr
-            String pwd = "*******"; // gmail account pass
-            String to = "*******"; // destination email
+            String from = "gkemelov@gmail.com"; // gmail account email addr
+            String pwd = "Kg081288"; // gmail account pass
+            String to = "kemel_off@mail.ru"; // destination email
     
 	if(request.getParameter("submit") != null)	{
                 String name = null; 
@@ -126,6 +124,11 @@
             Message msg = new MimeMessage(mailSession);
             msg.setFrom(new InternetAddress(from));
             InternetAddress[] address = { new InternetAddress(to) };
+            // -- setting reply to
+            msg.setReplyTo(new javax.mail.Address[]
+{
+    new javax.mail.internet.InternetAddress(email)
+});
             msg.setRecipients(Message.RecipientType.TO, address);
             msg.setSubject(subject);
             msg.setContent(text, "text/html");
@@ -133,7 +136,6 @@
             System.setProperty("javax.net.ssl.trustStore", "conf/jssecacerts");
             System.setProperty("javax.net.ssl.trustStorePassword", "admin");
             transport.connect(host, from, pwd);
-
             try {
                 transport.sendMessage(msg, msg.getAllRecipients());
             } catch(Exception e) {
